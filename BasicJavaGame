@@ -1,0 +1,546 @@
+// The "MovingBallApplet5" class.
+import java.applet.*;
+import java.awt.*;
+import javax.swing.JPanel;
+/*After hitting run, click on the applet.
+Using arrow keys, try to avoid big ball, and try to catch small ball. */
+public class TheEasietGameEver extends Applet implements Runnable
+{
+    // Place instance variables here
+    // Initialization of variables
+    int appletsize_x = 800;
+    int appletsize_y = 600;
+
+    //MAIN VARIABLES
+    int mx_pos = appletsize_x / 2;    // x - Position of main ball
+    boolean mx = (mx_pos != 0);
+    int my_pos = appletsize_y / 2;        // y - Position of main ball
+    boolean my = (my_pos != 0);
+
+    int mradius = 20;        // Radius of main ball
+    boolean mr = (mradius != 0);
+
+    int mx_speed = 2;   //Speed of Main Ball
+    int my_speed = 2;   //speed of Main Ball
+
+    //BIG VARIABLES
+    int bx_pos = appletsize_x / 80;     // x - Position of big ball
+    boolean bx = (bx_pos != 0);
+    int by_pos = appletsize_y / 80;        // y - Position of big ball
+    boolean by = (by_pos != 0);
+
+    int bradius = 30;        // Radius of big ball
+    boolean br = (bradius != 0);
+
+    int bx_speed = 1;   //Speed of big Ball
+    int by_speed = 1;
+
+    //LARGE VARIABLES
+    int lx_pos = appletsize_x / 2 / 1 / 5; // x - Position of big ball
+    //boolean lx = (lx_pos != 0);
+    int ly_pos = appletsize_y / 2 / 1 / 5;    // y - Position of big ball
+    //boolean ly = (ly_pos != 0);
+
+    int lradius = 30;        // Radius of big ball
+    //boolean lr = (lradius != 0);
+
+    int lx_speed = 1;   //Speed of big Ball
+    int ly_speed = 1;
+
+    //SMALL VARIABLES
+    int sx_pos = appletsize_x / 1 / 2;       // x - Position of big ball
+    boolean sx = (sx_pos != 0);
+    int sy_pos = appletsize_y / 1 / 2;      // y - Position of big ball
+    boolean sy = (sy_pos != 0);
+
+    int sradius = 10;        // Radius of big ball
+    boolean sr = (sradius != 0);
+
+    int sx_speed = 1;   //Speed of big Ball
+    int sy_speed = 1;
+
+    //TINY VARIABLES
+    int tx_pos = appletsize_x / 1 / 5;    // x - Position of big ball
+    //boolean sx = (sx_pos != 0);
+    int ty_pos = appletsize_y / 1 / 5;   // y - Position of big ball
+    //boolean sy = (sy_pos != 0);
+
+    int tradius = 10;        // Radius of big ball
+    //boolean sr = (sradius != 0);
+
+    int tx_speed = 1;   //Speed of big Ball
+    int ty_speed = 1;
+
+    //OTHER GLOBAL VARIABLES
+    int count = 0;
+    int total = 0;
+
+    boolean GameOver = true;
+
+    boolean StartGame = true;
+
+    // declare two instance variables at the head of the program
+    private Image dbImage;
+    private Graphics dbg;
+    
+    
+    
+    
+
+    public void init ()
+    {
+        // Place the body of the initialization method here
+        setSize (800, 600);
+        setBackground (new Color (231, 188, 255));
+        
+        setLayout(new CardLayout());
+         JPanel startPanel = new JPanel();
+
+   add(startPanel, "Card 1");
+
+    } // init method
+
+
+    public void start ()
+    {
+
+        // define a new thread
+        Thread th = new Thread (this);
+        // start this thread
+        th.start ();
+    }
+
+
+    public void stop ()
+    {
+        //nothing right now
+    }
+
+
+    public void destroy ()
+    {
+        //nothing right now
+    }
+
+
+    //RUN
+    public void run ()
+    {
+
+        // lower ThreadPriority
+        Thread.currentThread ().setPriority (Thread.MIN_PRIORITY);
+
+
+        // run a long while (true) this means in our case "always"
+        while (true)
+        {
+
+            // Ball is bounced if its x - position reaches the right border of the applet
+            if (mx_pos > appletsize_x - mradius)
+            {
+
+                // Change direction of ball movement
+                mx_speed = -1;
+
+            }
+            // Ball is bounced if its x - position reaches the left border of the applet
+            else if (mx_pos < mradius)
+            {
+
+                // Change direction of ball movement
+                mx_speed = +1;
+
+            }
+
+            else if (mx_pos < mradius)
+            {
+
+                // Change direction of ball movement
+                mx_speed = +1;
+
+            }
+            //if the ball is g
+            else if (my_pos > appletsize_y - mradius)
+            {
+
+                // Change direction of ball movement
+                my_speed = -1;
+
+            }
+            else if (my_pos < mradius)
+            {
+
+                // Change direction of ball movement
+                my_speed = +1;
+
+            }
+
+            mx_pos = mx_pos + mx_speed; //update the current location of the x on the ball
+            my_pos = my_pos + my_speed; //update the current location of the y on the ball
+
+            // repaint the applet
+            //repaint ();
+
+
+            // Ball is bounced if its x - position reaches the right border of the applet
+            if (bx_pos > appletsize_x - bradius)
+            {
+
+                // Change direction of ball movement
+                bx_speed = -2;
+
+            }
+            // Ball is bounced if its x - position reaches the left border of the applet
+            else if (bx_pos < bradius)
+            {
+
+                // Change direction of ball movement
+                bx_speed = +1;
+
+            }
+
+            else if (bx_pos < bradius)
+            {
+
+                // Change direction of ball movement
+                bx_speed = +1;
+
+            }
+            //if the ball is g
+            else if (by_pos > appletsize_y - bradius)
+            {
+
+                // Change direction of ball movement
+                by_speed = -1;
+
+            }
+            else if (by_pos < bradius)
+            {
+
+                // Change direction of ball movement
+                by_speed = +1;
+
+            }
+
+            bx_pos = bx_pos + bx_speed; //update the current location of the x on the ball
+            by_pos = by_pos + by_speed; //update the current location of the y on the ball
+
+            repaint ();
+
+            // Ball is bounced if its x - position reaches the right border of the applet
+            if (lx_pos > appletsize_x - lradius)
+            {
+
+                // Change direction of ball movement
+                lx_speed = -2;
+
+            }
+            // Ball is bounced if its x - position reaches the left border of the applet
+            else if (lx_pos < lradius)
+            {
+
+                // Change direction of ball movement
+                lx_speed = +1;
+
+            }
+
+            else if (lx_pos < lradius)
+            {
+
+                // Change direction of ball movement
+                lx_speed = +1;
+
+            }
+            //if the ball is g
+            else if (ly_pos > appletsize_y - lradius)
+            {
+
+                // Change direction of ball movement
+                ly_speed = -1;
+
+            }
+            else if (ly_pos < lradius)
+            {
+
+                // Change direction of ball movement
+                ly_speed = +1;
+
+            }
+
+            lx_pos = lx_pos + lx_speed; //update the current location of the x on the ball
+            ly_pos = ly_pos + ly_speed; //update the current location of the y on the ball
+
+            repaint ();
+
+            // Ball is bounced if its x - position reaches the right border of the applet
+            if (sx_pos > appletsize_x - sradius)
+            {
+
+                // Change direction of ball movement
+                sx_speed = -2;
+
+            }
+            // Ball is bounced if its x - position reaches the left border of the applet
+            else if (sx_pos < sradius)
+            {
+
+                // Change direction of ball movement
+                sx_speed = +1;
+
+            }
+
+            else if (sx_pos < sradius)
+            {
+
+                // Change direction of ball movement
+                sx_speed = +1;
+
+            }
+            //if the ball is g
+            else if (sy_pos > appletsize_y - sradius)
+            {
+
+                // Change direction of ball movement
+                sy_speed = -1;
+
+            }
+            else if (sy_pos < sradius)
+            {
+
+                // Change direction of ball movement
+                sy_speed = +1;
+
+            }
+
+            sx_pos = sx_pos + sx_speed; //update the current location of the x on the ball
+            sy_pos = sy_pos + sy_speed; //update the current location of the y on the ball
+
+            repaint ();
+
+            // Ball is bounced if its x - position reaches the right border of the applet
+            if (tx_pos > appletsize_x - tradius)
+            {
+
+                // Change direction of ball movement
+                tx_speed = -2;
+
+            }
+            // Ball is bounced if its x - position reaches the left border of the applet
+            else if (tx_pos < tradius)
+            {
+
+                // Change direction of ball movement
+                tx_speed = +1;
+
+            }
+
+            else if (tx_pos < tradius)
+            {
+
+                // Change direction of ball movement
+                tx_speed = +1;
+
+            }
+            //if the ball is g
+            else if (ty_pos > appletsize_y - tradius)
+            {
+
+                // Change direction of ball movement
+                ty_speed = -1;
+
+            }
+            else if (ty_pos < tradius)
+            {
+
+                // Change direction of ball movement
+                ty_speed = +1;
+
+            }
+
+            tx_pos = tx_pos + tx_speed; //update the current location of the x on the ball
+            ty_pos = ty_pos + ty_speed; //update the current location of the y on the ball
+
+            repaint ();
+
+
+            //http://stackoverflow.com/questions/13097286/how-to-detect-two-moving-shapes-overlapped-algorithm is the place where I got the logic for the code for the circle collisions.
+                   if (Math.pow ((mx_pos - sx_pos), 2) + Math.pow ((my_pos - sy_pos), 2) < Math.pow ((mradius + sradius), 2)) //if main ball hits small ball, count increases by one
+            {
+                count++;
+               sradius = 0; 
+
+            }
+            
+            if (Math.pow ((mx_pos - tx_pos), 2) + Math.pow ((my_pos - ty_pos), 2) < Math.pow ((mradius + tradius), 2)) //if main ball hits small ball, count increases by one
+            {
+                count++;
+                tradius = 0; 
+
+            }
+
+            if (Math.pow ((bx_pos - mx_pos), 2) + Math.pow ((by_pos - my_pos), 2) < Math.pow ((bradius + mradius), 2) || Math.pow ((lx_pos - mx_pos), 2) + Math.pow ((ly_pos - my_pos), 2) < Math.pow ((lradius + mradius), 2))  //if main ball hits big ball, game is over and count is displayed
+            {
+                GameOver = true;
+                break;
+            }
+
+            //repaint ();
+            try
+            {
+                // Stop thread for 20 milliseconds
+                Thread.sleep (20);
+            }
+            catch (InterruptedException ex)
+            {
+                // do nothing
+            }
+            // set ThreadPriority to maximum value
+            Thread.currentThread ().setPriority (Thread.MAX_PRIORITY);
+        }
+
+    }
+
+
+    /** Update - Method, implements double buffering */
+    public void update (Graphics g)
+    {
+
+        // initialize buffer
+        if (dbImage == null)
+        {
+            dbImage = createImage (this.getSize ().width, this.getSize ().height);
+            dbg = dbImage.getGraphics ();
+        }
+
+        // clear screen in background
+        dbg.setColor (getBackground ());
+        dbg.fillRect (0, 0, this.getSize ().width, this.getSize ().height);
+
+        // draw elements in background
+        dbg.setColor (getForeground ());
+        paint (dbg);
+
+        // draw image on the screen
+        g.drawImage (dbImage, 0, 0, this);
+
+    }
+
+
+    // method to handle key - down events
+    public boolean keyDown (Event e, int key)
+    {
+       /* if (key == Event.ENTER)
+        {
+            // changing x - speed so that ball moves to the left side (x_speed negative)
+            StartGame = true;
+            repaint ();
+        } */
+
+        // user presses left cursor key
+        if (key == Event.LEFT)
+        {
+            // changing x - speed so that ball moves to the left side (x_speed negative)
+            mx_speed = -1;
+            my_speed = 0;
+        }
+        // user presses right cursor key
+        else if (key == Event.RIGHT)
+        {
+            // changing x - speed so that ball moves to the right side (x_speed positive)
+            mx_speed = 1;
+            my_speed = 0;
+        }
+        // user presses space bar (value = 32!)
+        else if (key == 32)
+        {
+            // Stop ball (x_speed = 0)
+            mx_speed = 0;
+            my_speed = 0;
+        }
+
+        else if (key == Event.DOWN)
+        {
+            // Stop ball (x_speed = 0)
+            my_speed = 1;
+            mx_speed = 0;
+
+        }
+        else if (key == Event.UP)
+        {
+            // Stop ball (x_speed = 0)
+            my_speed = -1;
+            mx_speed = 0;
+
+        }
+        else
+        {
+            /* Additionally the method prints out the ASCII - value if an other key is pressed. This is not necessary but a possibility for you to test which value a key has.*/
+            System.out.println ("Character: " + (char) key + " Integer Value: " + key);
+        }
+
+        // DON'T FORGET (although it has no meaning here)
+        return true;
+
+    }
+
+
+    public void paint (Graphics g)
+    {
+        // Place the body of the drawing method here
+      g.setColor (new Color (240, 0, 80));
+      g.setFont(new Font("Segoe Script", Font.BOLD, 18)); 
+      g.drawString ("Magneta is you. Using arrow keys, avoid bigger dots, and catch smaller dots.", 5, 20);
+      g.drawString ("Click once to start.", 5, 40);
+        
+/*if (StartGame = true)
+        {
+            g.drawString (" ", 16, 16);
+        } */
+
+        // set main color
+        g.setColor (new Color (204, 0, 102));
+
+        // paint a filled colored main circle
+        g.fillOval (mx_pos - mradius, my_pos - mradius, 2 * mradius, 2 * mradius);
+
+        // set big color
+        g.setColor (new Color (250, 40, 150));
+
+        // paint a filled colored big circle
+        g.fillOval (bx_pos - bradius, by_pos - bradius, 2 * bradius, 2 * bradius);
+
+        // set small color
+        g.setColor (new Color (250, 40, 50));
+
+        // paint a filled colored small circle
+        g.fillOval (sx_pos - sradius, sy_pos - sradius, 2 * sradius, 2 * sradius);
+
+        // set tiny color
+        g.setColor (new Color (220, 80, 50));
+
+        // paint a filled colored tiny circle
+        g.fillOval (tx_pos - tradius, ty_pos - tradius, 2 * tradius, 2 * tradius);
+
+        // set large color
+        g.setColor (new Color (120, 80, 50));
+
+        // paint a filled colored large circle
+        g.fillOval (lx_pos - lradius, ly_pos - lradius, 2 * lradius, 2 * lradius);
+
+        if (Math.pow ((bx_pos - mx_pos), 2) + Math.pow ((by_pos - my_pos), 2) < Math.pow ((bradius + mradius), 2) || Math.pow ((lx_pos - mx_pos), 2) + Math.pow ((ly_pos - my_pos), 2) < Math.pow ((lradius + mradius), 2))  //if main ball hits big ball, game is over and count is displayed
+        {
+            g.drawString ("Game over! You have " + count + " points!", 300, 300);
+        }
+
+
+
+
+    } // paint method
+} // MovingBallApplet5 class
+
+
+
+
+
+
+
